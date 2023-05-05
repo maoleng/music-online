@@ -35,18 +35,22 @@ abstract class Model
         }
     }
 
-
-    public function raw($sql): array
+    public function raw($sql): array|bool
     {
-        $result = [];
-        $rows = $this->database()->query($sql)->fetch_all(MYSQLI_ASSOC);
-        foreach ($rows as $row) {
-            $model = clone $this;
-            $model->setAttributes($model, $row);
-            $result[] = $model;
+        $sql = trim($sql);
+        if (str_starts_with($sql, 'SELECT')) {
+            $result = [];
+            $rows = $this->database()->query($sql)->fetch_all(MYSQLI_ASSOC);
+            foreach ($rows as $row) {
+                $model = clone $this;
+                $model->setAttributes($model, $row);
+                $result[] = $model;
+            }
+
+            return $result;
         }
 
-        return $result;
+        return $this->database()->query($sql);
     }
 
     public function setAttributes($model, $data): void

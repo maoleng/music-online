@@ -14,9 +14,6 @@ class Controller
 
     public function home()
     {
-        $a =(new User)->rawPaginate('SELECT * FROM users', 3);
-        dd($a);
-
         return view('home');
     }
 
