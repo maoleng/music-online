@@ -143,6 +143,7 @@
 <script>
     $(document).ready(function () {
         <?= notifyMessage() ?>
+        $('#btn-play').click()
         $('.btn-add_to_playlist').on('click', function () {
             $.ajax({
                 url: '<?= url('add-to-playlist') ?>',
