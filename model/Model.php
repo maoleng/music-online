@@ -4,68 +4,68 @@ namespace model;
 
 use mysqli;
 
-#[\AllowDynamicProperties]
+#[\AllowStaticProperties]
 abstract class Model
 {
+    private static $db;
 
-    private $db;
     public int $id;
 
-    public function database(): mysqli
+    public static function database(): mysqli
     {
-        if (empty($this->db)) {
-            $this->db = new mysqli
-            (
-                'localhost',
-                'root',
+        if (empty(self::$db)) {
+            self::$db = new mysqli(
+                '127.0.0.1',
+                'maoleng',
                 '',
                 'music_online',
             );
-            $this->db->set_charset('utf8');
-            return $this->db;
+            self::$db->set_charset('utf8');
+            return self::$db;
         }
 
-        return $this->db;
+        return self::$db;
     }
 
     public function __destruct()
     {
-        if ((! isset($this->db)) && $this->database()->connect_errno) {
-            $this->database()->close();
+        if ((! isset(self::$db)) && self::database()->connect_errno) {
+            self::database()->close();
         }
     }
 
-    public function raw($sql): array|bool
+    public static function raw($sql): array|bool
     {
         $sql = trim($sql);
         if (str_starts_with($sql, 'SELECT')) {
             $result = [];
-            $rows = $this->database()->query($sql)->fetch_all(MYSQLI_ASSOC);
+            $rows = self::database()->query($sql)->fetch_all(MYSQLI_ASSOC);
             foreach ($rows as $row) {
-                $model = clone $this;
-                $model->setAttributes($model, $row);
+                $model = new static();
+
+                self::setAttributes($model, $row);
                 $result[] = $model;
             }
 
             return $result;
         }
 
-        return $this->database()->query($sql);
+        return self::database()->query($sql);
     }
 
-    public function setAttributes($model, $data): void
+    public static function setAttributes($model, $data): void
     {
         foreach ($data as $key => $value) {
             $model->$key = $value;
         }
     }
 
-    public function rawPaginate($sql, $per_page = 10): array
+    public static function rawPaginate($sql, $per_page = 10): array
     {
-        return $this->getPagination($sql, $per_page);
+        return self::getPagination($sql, $per_page);
     }
 
-    private function getPagination($query, $per_page): array
+    private static function getPagination($query, $per_page): array
     {
         $page = (int) request()->get('page');
         if ($page === 0) {
@@ -77,13 +77,13 @@ abstract class Model
         $query_count = preg_replace('/SELECT .* FROM/', 'SELECT count(*) FROM', $query);
         $query_count = preg_replace('/OFFSET \d+/', '', $query_count);
 
-        $total = (int) $this->database()->query($query_count)->fetch_row()[0];
-        $rows = $this->database()->query($query)->fetch_all(MYSQLI_ASSOC);
+        $total = (int) self::database()->query($query_count)->fetch_row()[0];
+        $rows = self::database()->query($query)->fetch_all(MYSQLI_ASSOC);
 
         $result = [];
         foreach ($rows as $row) {
-            $model = clone $this;
-            $model->setAttributes($model, $row);
+            $model = new static();
+            self::setAttributes($model, $row);
             $result[] = $model;
         }
         $last_page = (int) ceil($total / $per_page);
@@ -102,5 +102,4 @@ abstract class Model
             'data' => $result,
         ];
     }
-
 }
