@@ -19,7 +19,7 @@ abstract class Model
                 'localhost',
                 'root',
                 '',
-                'learn_laravel',
+                'music_online',
             );
             $this->db->set_charset('utf8');
             return $this->db;

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'GET /' => 'Controller@index',
-    'GET /home' => 'Controller@home',
+    'GET /' => 'HomeController@index',
 
 ];
