@@ -9,6 +9,7 @@ return [
     'POST /signup' => 'AuthController@handleSignup',
 
     'GET /music' => 'MusicController@index',
+    'GET /podcast' => 'PodcastController@index',
 
     'GET /detail' => 'MusicController@detail',
 ];
