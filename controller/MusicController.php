@@ -9,7 +9,7 @@ use model\Podcast;
 use model\User;
 use model\UserMusic;
 
-class MusicController
+class MusicController extends Controller
 {
 
     public function index(Request $request)
@@ -112,6 +112,35 @@ class MusicController
         UserMusic::raw("DELETE FROM users_musics WHERE user_id = $user_id AND music_id = $id");
 
         session()->flash('success', 'Removed successfully');
+    }
+
+    public function create(Request $request): void
+    {
+        $data = $request->all();
+        if (empty($data['name']) || empty($data['singer']) || empty($data['category']) || empty($data['lyrics']) ||
+            $data['banner']['error'] === 4 || $data['audio']['error'] === 4) {
+            $this->returnBackError('Field must not be empty');
+        }
+
+        $released_at = now()->toDateTimeString();
+        Music::raw("
+            INSERT INTO musics (name, singer, lyrics, category, music_path, banner, released_at)
+            VALUES ('{$data['name']}', '{$data['singer']}', '{$data['lyrics']}', '{$data['category']}', '', '', '$released_at')
+        ");
+        $id = Music::database()->insert_id;
+
+        mkdir("public/upload/$id");
+        $extension = pathinfo(basename($data['banner']['name']),PATHINFO_EXTENSION);
+        $banner = "public/upload/$id/banner.$extension";
+        move_uploaded_file($data['banner']['tmp_name'], $banner);
+
+        $extension = pathinfo(basename($data['audio']['name']),PATHINFO_EXTENSION);
+        $music_path = "public/upload/$id/audio.$extension";
+        move_uploaded_file($data['audio']['tmp_name'], $music_path);
+
+        Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
+
+        $this->returnBackSuccess('Create music successfully');
     }
 
 }

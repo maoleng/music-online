@@ -105,7 +105,6 @@
                                     <h4><a href="<?= url('detail')."?id=$music->id" ?>"><?= $music->limitName() ?></a></h4>
                                     <span><a href="#"><?= $music->singer ?></a></span>
                                 </div>
-                                <span class="single-item__time"><?= $music->length ?></span>
                                     <button data-id="<?= $music->id ?>" class="btn-add_to_playlist single-item__add">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"></path></svg>
                                     </button>
