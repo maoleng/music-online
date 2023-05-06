@@ -22,4 +22,10 @@ class Podcast extends Model
         return $views;
     }
 
+    public function bannerPath(): string
+    {
+        return str_starts_with($this->banner, 'http') ? $this->banner : url($this->banner);
+    }
+
+
 }

@@ -17,4 +17,16 @@ class Music extends Model
         return substr($this->name, 0, 15).(strlen($this->name) > 15 ? '...' : '');
     }
 
+    public function bannerPath(): string
+    {
+        return str_starts_with($this->banner, 'http') ? $this->banner : url($this->banner);
+    }
+
+    public function musicPath(): string
+    {
+        return str_starts_with($this->music_path, 'http') ? $this->music_path : url($this->music_path);
+    }
+
+
+
 }

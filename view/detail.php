@@ -29,7 +29,7 @@
                 <div class="release">
                     <div class="release__content">
                         <div class="release__cover">
-                            <img src="<?= $music->banner ?>" alt="">
+                            <img src="<?= $music->bannerPath() ?>" alt="">
                         </div>
                         <div class="release__stat">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,13.18V11A8,8,0,0,0,4,11v2.18A3,3,0,0,0,2,16v2a3,3,0,0,0,3,3H8a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1H6V11a6,6,0,0,1,12,0v2H16a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h3a3,3,0,0,0,3-3V16A3,3,0,0,0,20,13.18ZM7,15v4H5a1,1,0,0,1-1-1V16a1,1,0,0,1,1-1Zm13,3a1,1,0,0,1-1,1H17V15h2a1,1,0,0,1,1,1Z"/></svg> <?= $music->views ?></span>
@@ -79,13 +79,13 @@
                             <button class="sign__btn">Edit</button>
                         </form>
                         <button data-id="<?= $music->id ?>" class="btn-add_to_playlist release__buy">Add to playlist</button>
-                        <a data-url="<?= $music->music_path ?>" href="#" class="btn-download release__buy">Download</a>
+                        <a data-url="<?= $music->musicPath() ?>" href="#" class="btn-download release__buy">Download</a>
                     </div>
 
                     <div class="release__list">
                         <ul class="main__list main__list--playlist main__list--dashbox">
                             <li class="single-item">
-                                <a id="btn-play" data-playlist data-title="<?= $music->name ?>" data-artist="<?= $music->singer ?>" data-img="<?= $music->banner ?>" href="<?= $music->music_path ?>" class="single-item__cover">
+                                <a id="btn-play" data-playlist data-title="<?= $music->name ?>" data-artist="<?= $music->singer ?>" data-img="<?= $music->bannerPath() ?>" href="<?= $music->musicPath() ?>" class="single-item__cover">
                                 </a>
                             </li>
                         </ul>

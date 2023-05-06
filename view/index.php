@@ -59,7 +59,7 @@
                 <div class="col-6 col-sm-4 col-lg-2">
                 <div class="album">
                     <div class="album__cover">
-                        <img src="<?= $music->banner ?>" alt="">
+                        <img src="<?= $music->bannerPath() ?>" alt="">
                         <a href="<?= url('detail')."?id=$music->id" ?>"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg></a>
                         <span class="album__stat">
                             <span>
@@ -96,8 +96,8 @@
                                 <li class="single-item">
                                 <span class="single-item__number"><?= $i + 1 ?></span>
                                 <span class="single-item__rate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.71,12.54a1,1,0,0,0-1.42,0l-3,3A1,1,0,0,0,9.71,17L12,14.66,14.29,17a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Zm-3-1.08L12,9.16l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-3-3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,1.42,1.42Z"/></svg> 1</span>
-                                <a data-link data-title="<?= $music->name ?>" data-artist="<?= $music->singer ?>" data-img="<?= $music->banner ?>" href="<?= $music->music_path ?>" class="single-item__cover">
-                                    <img src="<?= $music->banner ?>" alt="">
+                                <a data-link data-title="<?= $music->name ?>" data-artist="<?= $music->singer ?>" data-img="<?= $music->bannerPath() ?>" href="<?= $music->musicPath() ?>" class="single-item__cover">
+                                    <img src="<?= $music->bannerPath() ?>" alt="">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
                                 </a>
@@ -134,7 +134,7 @@
                         <?php foreach ($podcasts as $podcast): ?>
                             <div class="live">
                             <a href="<?= $podcast->path ?>" class="live__cover open-video">
-                                <img src="<?= $podcast->banner ?>" alt="">
+                                <img src="<?= $podcast->bannerPath() ?>" alt="">
                                 <span class="live__status">new</span>
                                 <span class="live__value"><?= $podcast->prettyViews() ?></span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"></path></svg>

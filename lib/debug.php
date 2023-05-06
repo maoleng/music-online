@@ -130,7 +130,7 @@
                 <ul>
                     <li>Hàm: <b><?php echo $error['function'] ?></b></li>
                     <li>Dòng: <b><?php echo $error['line'] ?></b></li>
-                    <li>Lớp: <b><?php echo $error['class'] ?></b></li>
+                    <li>Lớp: <b><?php echo $error['class'] ?? 'a' ?></b></li>
                 </ul>
                     <br>
                 <?php } ?>
