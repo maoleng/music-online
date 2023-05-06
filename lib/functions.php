@@ -1,6 +1,7 @@
 <?php
 
 
+use Carbon\Carbon;
 use lib\Redirect;
 use lib\Request;
 
@@ -73,6 +74,13 @@ if (! function_exists('redirect')) {
     }
 }
 
+if (! function_exists('now')) {
+    function now(): Carbon
+    {
+        return Carbon::now();
+    }
+}
+
 if (! function_exists('c')) {
     function c()
     {
@@ -80,3 +88,9 @@ if (! function_exists('c')) {
     }
 }
 
+if (! function_exists('alertMessage')) {
+    function alertMessage()
+    {
+        return session()->get('success') ?? session()->get('error');
+    }
+}

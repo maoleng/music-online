@@ -15,6 +15,11 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function signup()
+    {
+        return view('auth.signup');
+    }
+
     public function handleLogin(Request $request): void
     {
         $data = $request->all();
@@ -33,6 +38,25 @@ class AuthController extends Controller
         redirect()->route('/');
     }
 
+    public function handleSignup(Request $request): void
+    {
+        $data = $request->all();
+        if (! isset($data['name'], $data['email'], $data['password'], $data['password2'])) {
+            $this->returnBackError('Please fill the input');
+        }
+        if ($data['password'] !== $data['password2']) {
+            $this->returnBackError('Password not match');
+        }
+        $registered_at = now()->toDateTimeString();
+        User::raw("
+            INSERT INTO users (name, email, password, registered_at) 
+            VALUES ('{$data['name']}', '{$data['email']}', '{$data['password']}', '{$registered_at}')
+        ");
+
+        session()->flash('success', 'Registered successfully');
+
+        redirect()->route('/');
+    }
 
 
 }
