@@ -72,3 +72,11 @@ if (! function_exists('redirect')) {
         return new Redirect;
     }
 }
+
+if (! function_exists('c')) {
+    function c()
+    {
+        return session()->get('c');
+    }
+}
+

@@ -5,6 +5,7 @@ require 'lib/functions.php';
 require 'lib/Request.php';
 require 'lib/Redirect.php';
 require 'lib/Session.php';
+require 'controller/Controller.php';
 $path = asset('vendor/autoload.php');
 if (file_exists($path)) {
     require_once $path;
