@@ -8,5 +8,7 @@ return [
     'GET /signup' => 'AuthController@signup',
     'POST /signup' => 'AuthController@handleSignup',
 
+    'GET /music' => 'MusicController@index',
+
     'GET /detail' => 'MusicController@detail',
 ];
