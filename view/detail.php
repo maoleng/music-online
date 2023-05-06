@@ -34,6 +34,8 @@
                         <div class="release__stat">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,13.18V11A8,8,0,0,0,4,11v2.18A3,3,0,0,0,2,16v2a3,3,0,0,0,3,3H8a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1H6V11a6,6,0,0,1,12,0v2H16a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h3a3,3,0,0,0,3-3V16A3,3,0,0,0,20,13.18ZM7,15v4H5a1,1,0,0,1-1-1V16a1,1,0,0,1,1-1Zm13,3a1,1,0,0,1-1,1H17V15h2a1,1,0,0,1,1,1Z"/></svg> <?= $music->views ?></span>
                         </div>
+                        <a href="#" class="release__buy">Add to playlist</a>
+                        <a data-url="<?= $music->music_path ?>" href="#" class="btn-download release__buy">Download</a>
                     </div>
 
                     <div class="release__list">
@@ -91,8 +93,32 @@
 <?php include asset('view/shared/footer.php') ?>
 <?php include asset('view/shared/script-tag.php') ?>
 <script>
-    $( document ).ready(function () {
-        $('#btn-play').click()
+    $(document).ready(function () {
+        $('.btn-download').on('click', function () {
+            downloadResource($(this).data('url'))
+        })
+        function downloadBlob(blob, filename) {
+            var a = document.createElement('a');
+            a.download = filename;
+            a.href = blob;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
+        function downloadResource(url) {
+            filename = url.split('\\').pop().split('/').pop();
+            fetch(url, {
+                mode: 'no-cors'
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    let blobUrl = window.URL.createObjectURL(blob);
+                    downloadBlob(blobUrl, filename);
+                })
+                .catch(e => console.error(e));
+        }
+
     })
 
 </script>
