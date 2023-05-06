@@ -7,4 +7,5 @@
 <script src="<?= url('public/js/slider-radio.js') ?>"></script>
 <script src="<?= url('public/js/jquery.inputmask.min.js') ?>"></script>
 <script src="<?= url('public/js/plyr.min.js') ?>"></script>
+<script src="<?= url('public/js/notify.min.js') ?>"></script>
 <script src="<?= url('public/js/main.js') ?>"></script>

@@ -94,3 +94,17 @@ if (! function_exists('alertMessage')) {
         return session()->get('success') ?? session()->get('error');
     }
 }
+
+if (! function_exists('notifyMessage')) {
+    function notifyMessage()
+    {
+        $success = session()->get('success');
+        if ($success !== null) {
+            return "$.notify('$success', 'success')";
+        }
+        $error = session()->get('error');
+        if ($error !== null) {
+            return "$.notify('$error', 'error')";
+        }
+    }
+}

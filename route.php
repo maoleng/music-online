@@ -17,5 +17,5 @@ return [
     'GET /podcast' => 'PodcastController@index',
 
     'GET /detail' => 'MusicController@detail',
-
+    'POST /add-to-playlist' => 'MusicController@addToPlaylist',
 ];

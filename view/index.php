@@ -106,9 +106,9 @@
                                     <span><a href="#"><?= $music->singer ?></a></span>
                                 </div>
                                 <span class="single-item__time"><?= $music->length ?></span>
-                                    <a href="#" class="single-item__add">
+                                    <button data-id="<?= $music->id ?>" class="btn-add_to_playlist single-item__add">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"></path></svg>
-                                    </a>
+                                    </button>
                             </li>
                             <?php endforeach ?>
                         </ul>
@@ -156,5 +156,20 @@
 
 <?php include asset('view/shared/footer.php') ?>
 <?php include asset('view/shared/script-tag.php') ?>
+<script>
+    $(document).ready(function () {
+        $('.btn-add_to_playlist').on('click', function () {
+            $.ajax({
+                url: '<?= url('add-to-playlist') ?>',
+                method: 'post',
+                data: {
+                    id: $(this).data('id'),
+                }
+            }).done(function (e) {
+                $.notify(e, 'success')
+            })
+        })
+    })
+</script>
 </body>
 </html>

@@ -7,6 +7,7 @@ use model\Comment;
 use model\Music;
 use model\Podcast;
 use model\User;
+use model\UserMusic;
 
 class MusicController
 {
@@ -60,6 +61,25 @@ class MusicController
             'music' => $music,
             'comments' => $comments,
         ]);
+    }
+
+    public function addToPlaylist(Request $request): void
+    {
+        $user_id = c()->id;
+        $id = $request->get('id');
+        $user_music = UserMusic::raw("
+            SELECT * FROM users_musics WHERE user_id = $user_id AND music_id = $id
+        ")[0] ?? null;
+        if ($user_music !== null) {
+            die('Added to playlist successfully');
+        }
+        $order = ((int) UserMusic::raw("SELECT count(*) as `count` FROM users_musics WHERE user_id = $user_id")[0]->count) + 1;
+        UserMusic::raw("
+            INSERT INTO users_musics (user_id, music_id, `order`) 
+            VALUES ($user_id, $id, $order)
+        ");
+
+        echo 'Added to playlist successfully';
     }
 
 }
