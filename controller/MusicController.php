@@ -14,10 +14,6 @@ class MusicController extends Controller
 
     public function index(Request $request)
     {
-        $categories =array_map(function ($music) {
-            return $music->category;
-        }, Music::raw("SELECT distinct category FROM musics"));
-
         $query = 'SELECT * FROM musics ';
         if (($q = $request->get('q')) !== null) {
             $query .= "WHERE (name LIKE '%$q%' OR
@@ -39,7 +35,7 @@ class MusicController extends Controller
 
 
         return view('music', [
-            'categories' => $categories,
+            'categories' => Music::getCategories(),
             'musics' => $musics,
         ]);
     }
@@ -60,6 +56,7 @@ class MusicController extends Controller
         return view('detail', [
             'music' => $music,
             'comments' => $comments,
+            'categories' => Music::getCategories(),
         ]);
     }
 
@@ -141,6 +138,67 @@ class MusicController extends Controller
         Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
 
         $this->returnBackSuccess('Create music successfully');
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request->all();
+        $id = (int) $data['id'];
+        if (empty($data['name']) || empty($data['singer']) || empty($data['category']) || empty($data['lyrics'])) {
+            $this->returnBackError('Field must not be empty');
+        }
+        Music::raw("
+            UPDATE musics SET 
+                name = '{$data['name']}', singer = '{$data['singer']}',
+                category = '{$data['category']}', lyrics = '{$data['lyrics']}' 
+            WHERE id = $id
+        ");
+
+        $music = Music::raw("SELECT * FROM musics WHERE id = $id")[0];
+        $dir = "public/upload/$id";
+        if ($data['banner']['error'] !== 4) {
+            if (str_starts_with($music->banner, 'public')) {
+                unlink($music->banner);
+            }
+            $extension = pathinfo(basename($data['banner']['name']),PATHINFO_EXTENSION);
+            $banner = "public/upload/$id/banner.$extension";
+            move_uploaded_file($data['banner']['tmp_name'], $banner);
+        }
+        if ($data['audio']['error'] !== 4) {
+            if (str_starts_with($music->music_path, 'public')) {
+                unlink($music->music_path);
+            }
+            $extension = pathinfo(basename($data['audio']['name']),PATHINFO_EXTENSION);
+            $music_path = "public/upload/$id/audio.$extension";
+            move_uploaded_file($data['audio']['tmp_name'], $music_path);
+        }
+        $banner = $banner ?? $music->banner;
+        $music_path = $music_path ?? $music->music_path;
+        Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
+
+        $this->returnBackSuccess('Create music successfully');
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->get('id');
+
+        try {
+            Music::raw("DELETE FROM musics WHERE id = $id");
+        } catch (\Exception) {
+            $this->returnBackError('Can not delete movie because it has relation');
+        }
+        $music = Music::raw("SELECT * FROM musics WHERE id = $id")[0];
+        if (! str_starts_with($music->banner, 'http')) {
+            unlink($music->banner);
+        }
+        if (! str_starts_with($music->music_path, 'http')) {
+            unlink($music->music_path);
+        }
+
+        session()->flash('success', 'Delete music successfully');
+
+        redirect()->back();
     }
 
 }
