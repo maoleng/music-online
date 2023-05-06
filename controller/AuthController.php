@@ -59,5 +59,11 @@ class AuthController extends Controller
         redirect()->route('/');
     }
 
+    public function logout(): void
+    {
+        session()->forget('c');
+
+        redirect()->route('/');
+    }
 
 }

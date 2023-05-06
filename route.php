@@ -7,6 +7,7 @@ return [
     'POST /login' => 'AuthController@handleLogin',
     'GET /signup' => 'AuthController@signup',
     'POST /signup' => 'AuthController@handleSignup',
+    'GET /logout' => 'AuthController@logout',
 
     'GET /profile' => 'UserController@index',
     'POST /profile' => 'UserController@update',
