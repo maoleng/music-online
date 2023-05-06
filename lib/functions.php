@@ -100,11 +100,11 @@ if (! function_exists('notifyMessage')) {
     {
         $success = session()->get('success');
         if ($success !== null) {
-            return "$.notify('$success', 'success')";
+            return "$.notify('$success', 'success');";
         }
         $error = session()->get('error');
         if ($error !== null) {
-            return "$.notify('$error', 'error')";
+            return "$.notify('$error', 'error');";
         }
     }
 }

@@ -63,6 +63,21 @@ class MusicController
         ]);
     }
 
+    public function playlist()
+    {
+        $user_id = c()->id;
+        $musics = Music::raw("
+            SELECT * FROM musics
+            WHERE id IN (
+                SELECT music_id FROM users_musics WHERE user_id = $user_id
+            )
+        ");
+
+        return view('playlist', [
+            'musics' => $musics,
+        ]);
+    }
+
     public function addToPlaylist(Request $request): void
     {
         $user_id = c()->id;
@@ -73,13 +88,30 @@ class MusicController
         if ($user_music !== null) {
             die('Added to playlist successfully');
         }
-        $order = ((int) UserMusic::raw("SELECT count(*) as `count` FROM users_musics WHERE user_id = $user_id")[0]->count) + 1;
+        $added_at = now()->toDateTimeString();
         UserMusic::raw("
-            INSERT INTO users_musics (user_id, music_id, `order`) 
-            VALUES ($user_id, $id, $order)
+            INSERT INTO users_musics (user_id, music_id, added_at) 
+            VALUES ($user_id, $id, '$added_at')
         ");
 
         echo 'Added to playlist successfully';
+    }
+
+    public function removeFromPlaylist(Request $request): void
+    {
+        $user_id = c()->id;
+        $id = $request->get('id');
+        $user_music = UserMusic::raw("
+            SELECT * FROM users_musics WHERE user_id = $user_id AND music_id = $id
+        ")[0] ?? null;
+        if ($user_music === null) {
+            session()->flash('success', 'Removed successfully');
+
+            return;
+        }
+        UserMusic::raw("DELETE FROM users_musics WHERE user_id = $user_id AND music_id = $id");
+
+        session()->flash('success', 'Removed successfully');
     }
 
 }
