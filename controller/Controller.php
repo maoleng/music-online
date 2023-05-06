@@ -12,4 +12,12 @@ abstract class Controller
         redirect()->back();
     }
 
+    public function returnBackSuccess($success): void
+    {
+        session()->flash('success', $success);
+
+        redirect()->back();
+    }
+
+
 }

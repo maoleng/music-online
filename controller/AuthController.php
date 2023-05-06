@@ -48,9 +48,10 @@ class AuthController extends Controller
             $this->returnBackError('Password not match');
         }
         $registered_at = now()->toDateTimeString();
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
         User::raw("
             INSERT INTO users (name, email, password, registered_at) 
-            VALUES ('{$data['name']}', '{$data['email']}', '{$data['password']}', '{$registered_at}')
+            VALUES ('{$data['name']}', '{$data['email']}', '$password', '{$registered_at}')
         ");
 
         session()->flash('success', 'Registered successfully');
