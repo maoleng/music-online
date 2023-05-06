@@ -12,7 +12,7 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb__item"><a href="<?= url() ?>">Home</a></li>
-                    <li class="breadcrumb__item breadcrumb__item--active">Music</li>
+                    <li class="breadcrumb__item breadcrumb__item--active">Podcast</li>
                 </ul>
             </div>
             <!-- end breadcrumb -->
@@ -20,7 +20,7 @@
             <!-- title -->
             <div class="col-12">
                 <div class="main__title main__title--page">
-                    <h1>Podcasts</h1>
+                    <h1>Podcast</h1>
                 </div>
             </div>
             <!-- end title -->
