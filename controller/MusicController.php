@@ -126,13 +126,16 @@ class MusicController extends Controller
         ");
         $id = Music::database()->insert_id;
 
-        mkdir("public/upload/$id");
+        $dir = "public/upload/music";
+        if (! is_dir($dir)) {
+            mkdir($dir);
+        }
         $extension = pathinfo(basename($data['banner']['name']),PATHINFO_EXTENSION);
-        $banner = "public/upload/$id/banner.$extension";
+        $banner = "$dir/$id.$extension";
         move_uploaded_file($data['banner']['tmp_name'], $banner);
 
         $extension = pathinfo(basename($data['audio']['name']),PATHINFO_EXTENSION);
-        $music_path = "public/upload/$id/audio.$extension";
+        $music_path = "$dir/$id.$extension";
         move_uploaded_file($data['audio']['tmp_name'], $music_path);
 
         Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
@@ -155,28 +158,34 @@ class MusicController extends Controller
         ");
 
         $music = Music::raw("SELECT * FROM musics WHERE id = $id")[0];
-        $dir = "public/upload/$id";
+        $dir = "public/upload/music";
         if ($data['banner']['error'] !== 4) {
             if (str_starts_with($music->banner, 'public')) {
                 unlink($music->banner);
             }
+            if (! is_dir($dir)) {
+                mkdir($dir);
+            }
             $extension = pathinfo(basename($data['banner']['name']),PATHINFO_EXTENSION);
-            $banner = "public/upload/$id/banner.$extension";
+            $banner = "$dir/$id.$extension";
             move_uploaded_file($data['banner']['tmp_name'], $banner);
         }
         if ($data['audio']['error'] !== 4) {
             if (str_starts_with($music->music_path, 'public')) {
                 unlink($music->music_path);
             }
+            if (! is_dir($dir)) {
+                mkdir($dir);
+            }
             $extension = pathinfo(basename($data['audio']['name']),PATHINFO_EXTENSION);
-            $music_path = "public/upload/$id/audio.$extension";
+            $music_path = "$dir/$id.$extension";
             move_uploaded_file($data['audio']['tmp_name'], $music_path);
         }
         $banner = $banner ?? $music->banner;
         $music_path = $music_path ?? $music->music_path;
         Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
 
-        $this->returnBackSuccess('Update podcast successfully');
+        $this->returnBackSuccess('Update music successfully');
     }
 
     public function delete(Request $request)
