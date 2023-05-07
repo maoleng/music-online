@@ -14,6 +14,7 @@ return [
     'POST /change-password' => 'UserController@changePassword',
 
     'GET /music' => 'MusicController@index',
+    'POST /music/comment' => 'MusicController@comment',
     'POST /music/create' => 'MusicController@create',
     'POST /music/update' => 'MusicController@update',
     'POST /music/delete' => 'MusicController@delete',

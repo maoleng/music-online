@@ -110,6 +110,23 @@ class MusicController extends Controller
         session()->flash('success', 'Removed successfully');
     }
 
+    public function comment(Request $request): void
+    {
+        $this->mustLogin();
+
+        $data = $request->all();
+        if (empty($data['content'])) {
+            $this->returnBackError('Field must not be empty');
+        }
+        $user_id = c()->id;
+        $commented_at = now()->toDateTimeString();
+        Comment::raw("
+            INSERT INTO comments (content, user_id, music_id, commented_at)
+            VALUES ('{$data['content']}', '$user_id', '{$data['id']}', '$commented_at')
+        ");
+        $this->returnBackSuccess('Commented successfully');
+    }
+
     public function create(Request $request): void
     {
         $this->mustBeAdmin();

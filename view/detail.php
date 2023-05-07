@@ -133,7 +133,8 @@
                             <?php endforeach ?>
                         </ul>
 
-                        <form action="<?= url('comment') ?>" method="post" class="comments__form">
+                        <form action="<?= url('music/comment')."?id=vsd" ?>" method="post" class="comments__form">
+                            <input type="hidden" name="id" value="<?= $music->id ?>">
                             <div class="sign__group">
                                 <textarea id="text" name="content" <?= c() === null ? 'disabled' : '' ?> class="sign__textarea" placeholder="Add comment"></textarea>
                             </div>
