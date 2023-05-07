@@ -35,7 +35,7 @@
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,13.18V11A8,8,0,0,0,4,11v2.18A3,3,0,0,0,2,16v2a3,3,0,0,0,3,3H8a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1H6V11a6,6,0,0,1,12,0v2H16a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h3a3,3,0,0,0,3-3V16A3,3,0,0,0,20,13.18ZM7,15v4H5a1,1,0,0,1-1-1V16a1,1,0,0,1,1-1Zm13,3a1,1,0,0,1-1,1H17V15h2a1,1,0,0,1,1,1Z"/></svg> <?= $music->views ?></span>
                         </div>
 
-                        <a href="#modal-create" class="hero__btn hero__btn--red">Edit</a>
+                        <a href="#modal-create" class="hero__btn hero__btn--red open-modal">Edit</a>
                         <form style="margin-top: -25px" action="<?= url('music/delete') ?>" method="post">
                             <input type="hidden" name="id" value="<?= $music->id ?>">
                             <button class="hero__btn hero__btn--red">Delete</button>
@@ -125,9 +125,9 @@
 
                         <form action="<?= url('comment') ?>" method="post" class="comments__form">
                             <div class="sign__group">
-                                <textarea id="text" name="content" <?= c() === null ? '' : 'disabled' ?> class="sign__textarea" placeholder="Add comment"></textarea>
+                                <textarea id="text" name="content" <?= c() === null ? 'disabled' : '' ?> class="sign__textarea" placeholder="Add comment"></textarea>
                             </div>
-                            <button <?= c() === null ? '' : 'disabled' ?> class="sign__btn">Send</button>
+                            <button <?= c() === null ? 'disabled' : '' ?> class="sign__btn">Send</button>
                         </form>
                     </div>
                     <!-- end comments -->

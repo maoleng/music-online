@@ -176,7 +176,7 @@ class MusicController extends Controller
         $music_path = $music_path ?? $music->music_path;
         Music::raw("UPDATE musics SET banner = '$banner', music_path = '$music_path' WHERE id = $id");
 
-        $this->returnBackSuccess('Create music successfully');
+        $this->returnBackSuccess('Update podcast successfully');
     }
 
     public function delete(Request $request)
