@@ -1,7 +1,9 @@
 <div class="sidebar">
     <!-- sidebar logo -->
     <div class="sidebar__logo">
-        <img src="<?= url('public/img/logo.svg') ?>" alt="">
+        <a href="<?= url() ?>">
+            <img src="<?= url('public/img/logo.svg') ?>" alt="">
+        </a>
     </div>
     <!-- end sidebar logo -->
 
