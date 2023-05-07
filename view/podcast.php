@@ -47,7 +47,7 @@
                                 </a>
                                 <h3 class="live__title"><a href="<?= $podcast->path ?>" class="open-video"><?= $podcast->name ?></a></h3>
                                 <a style="width: 30%;" href="#modal-<?= $podcast->id ?>" class="hero__btn hero__btn--red open-modal">Edit</a>
-                                <a style="width: 30%;" href="#modal-create" class="hero__btn hero__btn--red open-modal">Delete</a>
+                                <a style="width: 30%;" href="#modal-del-<?= $podcast->id ?>" class="hero__btn hero__btn--red open-modal">Delete</a>
                             </div>
                         </div>
 
@@ -71,6 +71,18 @@
 
                             <button class="sign__btn">Edit</button>
                         </form>
+                        <form action="<?= url('podcast/delete') ?>" method="post" id="modal-del-<?= $podcast->id ?>" class="zoom-anim-dialog mfp-hide modal modal--form">
+                            <button class="modal__close" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+
+                            <h4 class="sign__title">Delete podcast</h4>
+                            <div class="sign__group sign__group--row">
+                                <span class="sign__value">This can be undo, do you really want to delete ?</span>
+                            </div>
+                            <input type="hidden" name="id" value="<?= $podcast->id ?>">
+
+                            <button class="sign__btn">Delete</button>
+                        </form>
+
                     <?php endforeach ?>
 
                 </div>

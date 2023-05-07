@@ -51,4 +51,15 @@ class PodcastController extends Controller
         $this->returnBackSuccess('Update podcast successfully');
     }
 
+    public function delete(Request $request): void
+    {
+        $id = $request->get('id');
+        Podcast::raw("DELETE FROM podcasts WHERE id = $id");
+        $podcast = Music::raw("SELECT * FROM podcasts WHERE id = $id")[0];
+        if (! str_starts_with($podcast->banner, 'http')) {
+            unlink($podcast->banner);
+        }
+        $this->returnBackSuccess('Delete podcast successfully');
+    }
+
 }
