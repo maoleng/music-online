@@ -20,6 +20,7 @@ return [
     'POST /music/delete' => 'MusicController@delete',
 
     'GET /podcast' => 'PodcastController@index',
+    'POST /podcast/increase-view' => 'PodcastController@increaseView',
     'POST /podcast/create' => 'PodcastController@create',
     'POST /podcast/update' => 'PodcastController@update',
     'POST /podcast/delete' => 'PodcastController@delete',

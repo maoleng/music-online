@@ -24,6 +24,12 @@ class PodcastController extends Controller
         ]);
     }
 
+    public function increaseView(Request $request): void
+    {
+        $id = $request->get('id');
+        Podcast::raw("UPDATE podcasts SET views = views + 1 WHERE id = $id");
+    }
+
     public function create(Request $request): void
     {
         $this->mustBeAdmin();

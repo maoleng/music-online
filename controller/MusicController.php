@@ -46,6 +46,7 @@ class MusicController extends Controller
         if (empty($music)) {
             die(404);
         }
+        Music::raw("UPDATE musics SET views = views + 1 WHERE id = $id");
         $comments = Comment::raw("
             SELECT users.name, comments.* FROM comments
             LEFT JOIN users ON comments.user_id = users.id

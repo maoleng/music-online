@@ -61,7 +61,7 @@
 
                 <div class="row row--grid">
                     <?php foreach ($podcasts as $i => $podcast): ?>
-                        <div class="col-12 col-sm-6 col-lg-4">
+                        <div data-id="<?= $podcast->id ?>" class="div-podcast col-12 col-sm-6 col-lg-4">
                             <div class="live">
                                 <a href="<?= $podcast->path ?>" class="live__cover open-video">
                                     <img src="<?= $podcast->bannerPath() ?>" alt="">
@@ -126,6 +126,15 @@
 <script>
     $( document ).ready(function () {
         <?= notifyMessage() ?>
+        $('.div-podcast').on('click', function () {
+            $.ajax({
+                url: '<?= url('podcast/increase-view') ?>',
+                method: 'post',
+                data: {
+                    id: $(this).data('id'),
+                }
+            })
+        })
     })
 
 </script>

@@ -134,7 +134,7 @@
                 <div class="main__carousel-wrap">
                     <div class="main__carousel main__carousel--podcasts owl-carousel" id="podcasts">
                         <?php foreach ($podcasts as $podcast): ?>
-                            <div class="live">
+                            <div data-id="<?= $podcast->id ?>" class="live div-podcast">
                             <a href="<?= $podcast->path ?>" class="live__cover open-video">
                                 <img src="<?= $podcast->bannerPath() ?>" alt="">
                                 <span class="live__status">new</span>
@@ -160,6 +160,15 @@
 <script>
     $(document).ready(function () {
         <?= notifyMessage() ?>
+        $('.div-podcast').on('click', function () {
+            $.ajax({
+                url: '<?= url('podcast/increase-view') ?>',
+                method: 'post',
+                data: {
+                    id: $(this).data('id'),
+                }
+            })
+        })
         $('.btn-add_to_playlist').on('click', function () {
             $.ajax({
                 url: '<?= url('add-to-playlist') ?>',
