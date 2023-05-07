@@ -61,6 +61,8 @@ class MusicController extends Controller
 
     public function playlist()
     {
+        $this->mustLogin();
+
         $user_id = c()->id;
         $musics = Music::raw("
             SELECT * FROM musics
