@@ -36,10 +36,18 @@
                         </div>
 
                         <?php if (c() !== null && (int) c()->is_admin) { ?>
-                            <a href="#modal-create" class="hero__btn hero__btn--red open-modal">Edit</a>
-                            <form style="margin-top: -25px" action="<?= url('music/delete') ?>" method="post">
+                            <a style="width: 30%; float:left; margin-bottom: 15px" href="#modal-create" class="release__buy open-modal">Edit</a>
+                            <a style="width: 30%; float:left; margin-bottom: 15px; margin-left: 20px  " href="#modal-del" class="release__buy open-modal">Delete</a>
+                            <form action="<?= url('music/delete') ?>" method="post" id="modal-del" class="zoom-anim-dialog mfp-hide modal modal--form">
+                                <button class="modal__close" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+
+                                <h4 class="sign__title">Delete music</h4>
+                                <div class="sign__group sign__group--row">
+                                    <span class="sign__value">This can be undo, do you really want to delete ?</span>
+                                </div>
                                 <input type="hidden" name="id" value="<?= $music->id ?>">
-                                <button class="hero__btn hero__btn--red">Delete</button>
+
+                                <button class="sign__btn">Delete</button>
                             </form>
 
                             <form action="<?= url('music/update') ?>" method="post" enctype="multipart/form-data" id="modal-create" class="zoom-anim-dialog mfp-hide modal modal--form">

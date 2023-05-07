@@ -199,7 +199,7 @@ class MusicController extends Controller
 
         try {
             Music::raw("DELETE FROM musics WHERE id = $id");
-        } catch (\Exception) {
+        } catch (\Exception $e) {
             $this->returnBackError('Can not delete movie because it has relation');
         }
         $music = Music::raw("SELECT * FROM musics WHERE id = $id")[0];
@@ -212,7 +212,7 @@ class MusicController extends Controller
 
         session()->flash('success', 'Delete music successfully');
 
-        redirect()->back();
+        redirect()->route('music');
     }
 
 }
