@@ -24,6 +24,32 @@ class PodcastController extends Controller
         ]);
     }
 
+    public function create(Request $request): void
+    {
+        $data = $request->all();
+        if (empty($data['name']) || empty($data['path']) || $data['banner']['error'] === 4) {
+            $this->returnBackError('Field must not be empty');
+        }
+
+        $released_at = now()->toDateTimeString();
+        Podcast::raw("
+            INSERT INTO podcasts (name, path, banner, released_at)
+            VALUES ('{$data['name']}', '{$data['path']}', '', '$released_at')
+        ");
+        $id = Podcast::database()->insert_id;
+
+        $dir = 'public/upload/podcast';
+        if (! is_dir($dir)) {
+            mkdir($dir);
+        }
+        $extension = pathinfo(basename($data['banner']['name']),PATHINFO_EXTENSION);
+        $banner = "$dir/$id.$extension";
+        move_uploaded_file($data['banner']['tmp_name'], $banner);
+        Podcast::raw("UPDATE podcasts SET banner = '$banner' WHERE id = $id");
+
+        $this->returnBackSuccess('Create podcast successfully');
+    }
+
     public function update(Request $request): void
     {
         $data = $request->all();

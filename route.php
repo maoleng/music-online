@@ -19,6 +19,7 @@ return [
     'POST /music/delete' => 'MusicController@delete',
 
     'GET /podcast' => 'PodcastController@index',
+    'POST /podcast/create' => 'PodcastController@create',
     'POST /podcast/update' => 'PodcastController@update',
     'POST /podcast/delete' => 'PodcastController@delete',
 

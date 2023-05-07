@@ -26,6 +26,28 @@
             <!-- end title -->
         </div>
 
+        <a href="#modal-create" class="hero__btn hero__btn--red open-modal">Create podcast</a>
+        <form action="<?= url('podcast/create') ?>" method="post" enctype="multipart/form-data" id="modal-create" class="zoom-anim-dialog mfp-hide modal modal--form">
+            <button class="modal__close" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+
+            <h4 class="sign__title">Add podcast</h4>
+
+            <div class="sign__group sign__group--row">
+                <label class="sign__label" for="email">Name</label>
+                <input id="email" type="text" name="name" class="sign__input" >
+            </div>
+            <div class="sign__group sign__group--row">
+                <label class="sign__label" for="email">Path</label>
+                <input id="email" type="text" name="path" class="sign__input" >
+            </div>
+            <div class="sign__group sign__group--row">
+                <label class="sign__label" for="email">Banner</label>
+                <input id="email" type="file" name="banner" class="" placeholder="email@email.com">
+            </div>
+
+            <button class="sign__btn">Create</button>
+        </form>
+
         <div class="row row--grid">
             <div class="col-12">
                 <div class="main__filter">
