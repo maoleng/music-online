@@ -74,7 +74,7 @@
                     </form>
 
                     <div class="main__filter-wrap">
-                        <select class="main__select" name="years">
+                        <select id="filter-category" class="main__select" name="years">
                             <option value="All genres"><?= ($category = request()->get('category')) === null ? 'All' : $category ?></option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?= $category ?>"><?= $category ?></option>
@@ -122,10 +122,12 @@
 <script>
     $( document ).ready(function () {
         <?= notifyMessage() ?>
-        $('select').on('change', function (e) {
+        $('#filter-category').on('change', function (e) {
+            console.log(123)
             const category = this.value
             window.location.href = location.protocol + '//' + location.host + location.pathname + '?category=' + category
         })
+    })
 
 </script>
 </body>
