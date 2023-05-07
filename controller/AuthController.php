@@ -12,18 +12,24 @@ class AuthController extends Controller
 
     public function login()
     {
+        $this->mustNotLoginBefore();
+
         return view('auth.login');
     }
 
     public function signup()
     {
+        $this->mustNotLoginBefore();
+
         return view('auth.signup');
     }
 
     public function handleLogin(Request $request): void
     {
+        $this->mustNotLoginBefore();
+
         $data = $request->all();
-        if (! isset($data['email'], $data['password'])) {
+        if (empty($data['email']) || empty($data['password'])) {
             $this->returnBackError('Please fill your email address');
         }
         $user = User::raw("SELECT * FROM users WHERE email = '{$data['email']}'")[0] ?? null;
@@ -40,8 +46,10 @@ class AuthController extends Controller
 
     public function handleSignup(Request $request): void
     {
+        $this->mustNotLoginBefore();
+
         $data = $request->all();
-        if (! isset($data['name'], $data['email'], $data['password'], $data['password2'])) {
+        if (empty($data['name'])|| empty($data['email']) || empty($data['password']) || empty($data['password2'])) {
             $this->returnBackError('Please fill the input');
         }
         if ($data['password'] !== $data['password2']) {
@@ -61,6 +69,7 @@ class AuthController extends Controller
 
     public function logout(): void
     {
+        $this->mustLogin();
         session()->forget('c');
 
         redirect()->route('/');

@@ -26,7 +26,6 @@
                             <a href="<?= url('/') ?>" class="sign__logo">
                                 <img src="<?= url('public/img/logo.svg') ?>" alt="">
                             </a>
-                            <?= alertMessage() ?>
                             <div class="sign__group">
                                 <input name="name" type="text" class="sign__input" placeholder="Name">
                             </div>
@@ -57,6 +56,8 @@
 
 <?php include asset('view/shared/footer.php') ?>
 <?php include asset('view/shared/script-tag.php') ?>
-
+<script>
+    <?= notifyMessage() ?>
+</script>
 </body>
 </html>

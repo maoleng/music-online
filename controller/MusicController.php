@@ -112,6 +112,8 @@ class MusicController extends Controller
 
     public function create(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $data = $request->all();
         if (empty($data['name']) || empty($data['singer']) || empty($data['category']) || empty($data['lyrics']) ||
             $data['banner']['error'] === 4 || $data['audio']['error'] === 4) {
@@ -142,8 +144,10 @@ class MusicController extends Controller
         $this->returnBackSuccess('Create music successfully');
     }
 
-    public function update(Request $request)
+    public function update(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $data = $request->all();
         $id = (int) $data['id'];
         if (empty($data['name']) || empty($data['singer']) || empty($data['category']) || empty($data['lyrics'])) {
@@ -187,8 +191,10 @@ class MusicController extends Controller
         $this->returnBackSuccess('Update music successfully');
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $id = $request->get('id');
 
         try {

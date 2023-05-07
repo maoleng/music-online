@@ -5,14 +5,36 @@ namespace controller;
 abstract class Controller
 {
 
-    public function returnBackError($error): void
+    protected function mustLogin(): void
+    {
+        if (empty(c())) {
+            redirect()->route('/');
+        }
+    }
+
+    protected function mustNotLoginBefore(): void
+    {
+        if (c() !== null) {
+            redirect()->route('/');
+        }
+    }
+
+    protected function mustBeAdmin(): void
+    {
+        $user = c();
+        if (empty($user) || ! (int) $user->is_admin) {
+            redirect()->route('/');
+        }
+    }
+
+    protected function returnBackError($error): void
     {
         session()->flash('error', $error);
 
         redirect()->back();
     }
 
-    public function returnBackSuccess($success): void
+    protected function returnBackSuccess($success): void
     {
         session()->flash('success', $success);
 

@@ -157,6 +157,7 @@
 <?php include asset('view/shared/script-tag.php') ?>
 <script>
     $(document).ready(function () {
+        <?= notifyMessage() ?>
         $('.btn-add_to_playlist').on('click', function () {
             $.ajax({
                 url: '<?= url('add-to-playlist') ?>',

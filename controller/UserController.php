@@ -13,14 +13,15 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $this->mustLogin();
 
-        return view('profile', [
-
-        ]);
+        return view('profile');
     }
 
     public function update(Request $request): void
     {
+        $this->mustLogin();
+
         $name = $request->get('name');
         if (empty($name)) {
             $this->returnBackError('Field can not be empty');
@@ -34,6 +35,8 @@ class UserController extends Controller
 
     public function changePassword(Request $request): void
     {
+        $this->mustLogin();
+
         $data = $request->all();
         $email = c()->email;
         $user = User::raw("SELECT * FROM users WHERE email = '$email'")[0] ?? null;

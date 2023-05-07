@@ -50,5 +50,8 @@
 
 <?php include asset('view/shared/footer.php') ?>
 <?php include asset('view/shared/script-tag.php') ?>
+<script>
+    <?= notifyMessage() ?>
+</script>
 </body>
 </html>

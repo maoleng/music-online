@@ -26,6 +26,8 @@ class PodcastController extends Controller
 
     public function create(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $data = $request->all();
         if (empty($data['name']) || empty($data['path']) || $data['banner']['error'] === 4) {
             $this->returnBackError('Field must not be empty');
@@ -52,6 +54,8 @@ class PodcastController extends Controller
 
     public function update(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $data = $request->all();
         $id = (int) $data['id'];
         if (empty($data['name']) || empty($data['path'])) {
@@ -79,6 +83,8 @@ class PodcastController extends Controller
 
     public function delete(Request $request): void
     {
+        $this->mustBeAdmin();
+
         $id = $request->get('id');
         Podcast::raw("DELETE FROM podcasts WHERE id = $id");
         $podcast = Music::raw("SELECT * FROM podcasts WHERE id = $id")[0];
