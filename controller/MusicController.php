@@ -19,8 +19,7 @@ class MusicController extends Controller
             $query .= "WHERE (name LIKE '%$q%' OR
                 singer LIKE '%$q%' OR
                 lyrics LIKE '%$q%' OR
-                category LIKE '%$q%' OR
-                length LIKE '%$q%'
+                category LIKE '%$q%'
             ) ";
         }
 
